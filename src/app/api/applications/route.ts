@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { MOCK_APPLICATIONS } from '@/lib/mock-data';
 
+export const dynamic = 'force-dynamic';
+
 // GET /api/applications — List applications
 export async function GET() {
   // In production: filter by user_id or company's job_ids from session

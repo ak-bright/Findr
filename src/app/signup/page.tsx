@@ -95,13 +95,13 @@ export default function SignupPage() {
           </div>
 
           <div style={{ position: 'relative', width: '100%', maxWidth: '600px', borderRadius: 'var(--radius-xl)', overflow: 'hidden', boxShadow: 'var(--shadow-ambient)' }}>
-            <img 
+            <Image 
               src="/images/download(11).jpg" 
               alt="Workspace" 
+              width={600}
+              height={400}
               style={{ width: '100%', height: 'auto', display: 'block', minHeight: '300px', objectFit: 'cover' }}
-              onError={(e) => {
-                e.currentTarget.src = 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200'
-              }}
+              unoptimized
             />
           </div>
         </section>

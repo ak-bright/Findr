@@ -2,9 +2,10 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Sparkles, Eye, EyeOff, LogIn, Globe } from 'lucide-react';
+import { Sparkles, Eye, EyeOff, Globe } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -41,7 +42,7 @@ export default function LoginPage() {
           <span style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-primary)' }}>Findr</span>
         </Link>
         <div style={{ fontSize: '0.9rem', color: 'var(--color-on-surface-variant)' }}>
-          Don't have an account?{' '}
+          Don&apos;t have an account?{' '}
           <Link href="/signup" style={{ color: 'var(--color-primary)', fontWeight: 700, textDecoration: 'none', marginLeft: '0.5rem' }}>
             Signup
           </Link>
@@ -91,13 +92,13 @@ export default function LoginPage() {
           </div>
 
           <div style={{ position: 'relative', width: '100%', maxWidth: '600px', borderRadius: 'var(--radius-xl)', overflow: 'hidden', boxShadow: 'var(--shadow-ambient)' }}>
-            <img 
+            <Image 
               src="/images/download(11).jpg" 
               alt="Workspace" 
+              width={600}
+              height={400}
               style={{ width: '100%', height: 'auto', display: 'block', minHeight: '300px', objectFit: 'cover' }}
-              onError={(e) => {
-                e.currentTarget.src = 'https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&q=80&w=1200'
-              }}
+              unoptimized // Standard for some local assets in dev
             />
           </div>
         </section>
