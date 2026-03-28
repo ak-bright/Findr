@@ -28,21 +28,22 @@ export default function JobCard({ job, index = 0 }: JobCardProps) {
 
   return (
     <motion.div
-      className="glass-card"
+      className="surface-card"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05, duration: 0.4 }}
       style={{
-        padding: '1.5rem',
         display: 'flex',
         flexDirection: 'column',
-        gap: '1rem',
+        boxShadow: '0px 10px 20px rgba(25, 28, 30, 0.04)',
+        overflow: 'hidden',
       }}
     >
+      <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1 }}>
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
         <div style={{ flex: 1 }}>
-          <h3 style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.35rem' }}>
+          <h3 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '0.35rem', fontFamily: 'var(--font-manrope)', color: 'var(--color-on-background)' }}>
             {job.title}
           </h3>
           <div
@@ -50,7 +51,7 @@ export default function JobCard({ job, index = 0 }: JobCardProps) {
               display: 'flex',
               alignItems: 'center',
               gap: '0.4rem',
-              color: 'var(--color-text-secondary)',
+              color: 'var(--color-on-surface-variant)',
               fontSize: '0.85rem',
             }}
           >
@@ -64,8 +65,8 @@ export default function JobCard({ job, index = 0 }: JobCardProps) {
       {/* Description */}
       <p
         style={{
-          color: 'var(--color-text-secondary)',
-          fontSize: '0.9rem',
+          color: 'var(--color-on-surface-variant)',
+          fontSize: '0.95rem',
           lineHeight: 1.6,
           display: '-webkit-box',
           WebkitLineClamp: 3,
@@ -85,34 +86,35 @@ export default function JobCard({ job, index = 0 }: JobCardProps) {
           <span
             style={{
               fontSize: '0.75rem',
-              color: 'var(--color-text-muted)',
+              color: 'var(--color-on-surface-variant)',
               padding: '0.2rem 0.5rem',
               alignSelf: 'center',
+              opacity: 0.8,
             }}
           >
             +{job.skills.length - 4} more
           </span>
         )}
       </div>
+      </div>
 
-      {/* Footer */}
+      {/* Footer using background shift instead of border */}
       <div
         style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          marginTop: 'auto',
-          paddingTop: '0.75rem',
-          borderTop: '1px solid var(--color-border)',
+          padding: '1rem 1.5rem',
+          background: 'var(--color-surface-container-low)',
         }}
       >
-        <div style={{ display: 'flex', gap: '1rem', fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-            <MapPin size={13} />
+        <div style={{ display: 'flex', gap: '1rem', fontSize: '0.85rem', color: 'var(--color-on-surface-variant)' }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+            <MapPin size={14} opacity={0.7} />
             {job.location}
           </span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-            <Calendar size={13} />
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+            <Calendar size={14} opacity={0.7} />
             {deadlineDate}
           </span>
         </div>
@@ -121,16 +123,16 @@ export default function JobCard({ job, index = 0 }: JobCardProps) {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '0.3rem',
-            color: 'var(--color-primary-light)',
-            fontSize: '0.85rem',
-            fontWeight: 500,
+            gap: '0.4rem',
+            color: 'var(--color-primary)',
+            fontSize: '0.9rem',
+            fontWeight: 600,
             textDecoration: 'none',
             transition: 'gap 0.2s ease',
           }}
         >
           View
-          <ArrowRight size={14} />
+          <ArrowRight size={16} />
         </Link>
       </div>
     </motion.div>

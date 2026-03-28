@@ -28,13 +28,11 @@ export default function Navbar() {
 
   return (
     <nav
+      className="glass-nav"
       style={{
         position: 'sticky',
         top: 0,
         zIndex: 50,
-        background: 'rgba(15, 15, 26, 0.85)',
-        backdropFilter: 'blur(20px)',
-        borderBottom: '1px solid var(--glass-border)',
       }}
     >
       <div
@@ -49,8 +47,8 @@ export default function Navbar() {
         }}
       >
         {/* Logo */}
-        <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <Sparkles size={28} color="#6366f1" />
+        <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+          <Sparkles size={28} color="var(--color-primary)" />
           <span
             style={{
               fontSize: '1.5rem',
@@ -68,7 +66,7 @@ export default function Navbar() {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '0.25rem',
+            gap: '2.5rem', /* Highly spacious tabs to meet the whitespace layout requirement */
           }}
           className="desktop-nav"
         >
@@ -82,14 +80,14 @@ export default function Navbar() {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.4rem',
-                  padding: '0.5rem 1rem',
-                  borderRadius: 'var(--radius-md)',
-                  fontSize: '0.9rem',
-                  fontWeight: 500,
+                  gap: '0.6rem',
+                  padding: '0.5rem 1.25rem',
+                  borderRadius: 'var(--radius-full)',
+                  fontSize: '0.95rem',
+                  fontWeight: 600,
                   textDecoration: 'none',
-                  color: isActive ? '#fff' : 'var(--color-text-secondary)',
-                  background: isActive ? 'rgba(99, 102, 241, 0.15)' : 'transparent',
+                  color: isActive ? 'var(--color-primary)' : 'var(--color-on-surface-variant)',
+                  background: isActive ? 'var(--color-primary-fixed)' : 'transparent',
                   transition: 'all 0.2s ease',
                 }}
               >
@@ -142,7 +140,8 @@ export default function Navbar() {
             className="mobile-menu"
             style={{
               overflow: 'hidden',
-              borderTop: '1px solid var(--color-border)',
+              background: 'var(--color-surface-container-lowest)',
+              borderTop: '1px solid var(--color-outline-variant)',
             }}
           >
             <div style={{ padding: '1rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -157,14 +156,14 @@ export default function Navbar() {
                     style={{
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '0.6rem',
-                      padding: '0.75rem 1rem',
+                      gap: '0.8rem',
+                      padding: '0.85rem 1.25rem',
                       borderRadius: 'var(--radius-md)',
-                      fontSize: '1rem',
-                      fontWeight: 500,
+                      fontSize: '1.05rem',
+                      fontWeight: 600,
                       textDecoration: 'none',
-                      color: isActive ? '#fff' : 'var(--color-text-secondary)',
-                      background: isActive ? 'rgba(99, 102, 241, 0.15)' : 'transparent',
+                      color: isActive ? 'var(--color-primary)' : 'var(--color-on-surface-variant)',
+                      background: isActive ? 'var(--color-primary-fixed)' : 'transparent',
                     }}
                   >
                     <Icon size={20} />

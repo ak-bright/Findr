@@ -1,0 +1,26 @@
+next.config.ts(1,15): error TS2614: Module '"next"' has no exported member 'NextConfig'. Did you mean to use 'import NextConfig from "next"' instead?
+src/app/cv-review/page.tsx(332,14): error TS2322: Type '{ children: string; jsx: true; global: true; }' is not assignable to type 'DetailedHTMLProps<StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>'.
+  Property 'jsx' does not exist on type 'DetailedHTMLProps<StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>'.
+src/app/jobs/[id]/page.tsx(4,10): error TS2305: Module '"next/navigation"' has no exported member 'useParams'.
+src/app/jobs/[id]/page.tsx(4,21): error TS2305: Module '"next/navigation"' has no exported member 'useRouter'.
+src/app/jobs/page.tsx(132,14): error TS2322: Type '{ children: string; jsx: true; global: true; }' is not assignable to type 'DetailedHTMLProps<StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>'.
+  Property 'jsx' does not exist on type 'DetailedHTMLProps<StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>'.
+src/app/layout.tsx(1,15): error TS2614: Module '"next"' has no exported member 'Metadata'. Did you mean to use 'import Metadata from "next"' instead?
+src/app/layout.tsx(2,10): error TS2305: Module '"next/font/google"' has no exported member 'Inter'.
+src/app/login/page.tsx(5,10): error TS2305: Module '"next/navigation"' has no exported member 'useRouter'.
+src/app/login/page.tsx(211,14): error TS2322: Type '{ children: string; jsx: true; }' is not assignable to type 'DetailedHTMLProps<StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>'.
+  Property 'jsx' does not exist on type 'DetailedHTMLProps<StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>'.
+src/app/post-job/page.tsx(4,10): error TS2305: Module '"next/navigation"' has no exported member 'useRouter'.
+src/app/post-job/page.tsx(317,14): error TS2322: Type '{ children: string; jsx: true; }' is not assignable to type 'DetailedHTMLProps<StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>'.
+  Property 'jsx' does not exist on type 'DetailedHTMLProps<StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>'.
+src/app/signup/page.tsx(5,10): error TS2305: Module '"next/navigation"' has no exported member 'useRouter'.
+src/app/signup/page.tsx(373,14): error TS2322: Type '{ children: string; jsx: true; }' is not assignable to type 'DetailedHTMLProps<StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>'.
+  Property 'jsx' does not exist on type 'DetailedHTMLProps<StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>'.
+src/components/FilterSidebar.tsx(235,14): error TS2322: Type '{ children: string; jsx: true; global: true; }' is not assignable to type 'DetailedHTMLProps<StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>'.
+  Property 'jsx' does not exist on type 'DetailedHTMLProps<StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>'.
+src/components/LoadingSpinner.tsx(21,14): error TS2322: Type '{ children: string; jsx: true; }' is not assignable to type 'DetailedHTMLProps<StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>'.
+  Property 'jsx' does not exist on type 'DetailedHTMLProps<StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>'.
+src/components/Navbar.tsx(4,10): error TS2305: Module '"next/navigation"' has no exported member 'usePathname'.
+src/components/Navbar.tsx(194,14): error TS2322: Type '{ children: string; jsx: true; global: true; }' is not assignable to type 'DetailedHTMLProps<StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>'.
+  Property 'jsx' does not exist on type 'DetailedHTMLProps<StyleHTMLAttributes<HTMLStyleElement>, HTMLStyleElement>'.
+src/lib/supabase/server.ts(2,10): error TS2305: Module '"next/headers"' has no exported member 'cookies'.

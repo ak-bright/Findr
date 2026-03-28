@@ -22,7 +22,7 @@ export default function Footer() {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <Sparkles size={20} color="#6366f1" />
+          <Sparkles size={20} color="var(--color-primary)" />
           <span className="gradient-text" style={{ fontWeight: 700, fontSize: '1.1rem' }}>
             Findr
           </span>

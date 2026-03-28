@@ -4,215 +4,227 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { LogIn, Mail, Lock, Eye, EyeOff } from 'lucide-react';
+import { Sparkles, Eye, EyeOff, LogIn, Globe } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+  });
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
-
-    // Mock login — in production, use Supabase Auth
-    try {
-      // Simulate API call
-      await new Promise((r) => setTimeout(r, 1000));
-
-      // For demo, any valid-looking email works
-      if (email && password.length >= 6) {
-        router.push('/dashboard');
-      } else {
-        setError('Invalid credentials. Password must be at least 6 characters.');
-      }
-    } catch {
-      setError('Something went wrong. Please try again.');
-    } finally {
-      setLoading(false);
-    }
+    
+    // Simulate login for now - ensuring redirect works
+    router.push('/dashboard');
   };
 
   return (
-    <div
-      style={{
-        minHeight: 'calc(100vh - 140px)',
-        display: 'flex',
+    <div style={{ minHeight: '100vh', background: 'var(--color-bg)', display: 'flex', flexDirection: 'column' }}>
+      {/* Header */}
+      <header style={{ 
+        padding: '1.5rem 3rem', 
+        display: 'flex', 
+        justifyContent: 'space-between', 
         alignItems: 'center',
-        justifyContent: 'center',
-        padding: '2rem 1.5rem',
-        position: 'relative',
-      }}
-    >
-      {/* Background orbs */}
-      <div
-        className="bg-orb"
-        style={{ width: 300, height: 300, background: '#6366f1', top: '10%', right: '10%' }}
-      />
-      <div
-        className="bg-orb"
-        style={{ width: 200, height: 200, background: '#8b5cf6', bottom: '15%', left: '10%' }}
-      />
+        position: 'absolute',
+        top: 0,
+        width: '100%',
+        zIndex: 10
+      }}>
+        <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+          <Sparkles size={24} color="var(--color-primary)" />
+          <span style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-primary)' }}>Findr</span>
+        </Link>
+        <div style={{ fontSize: '0.9rem', color: 'var(--color-on-surface-variant)' }}>
+          Don't have an account?{' '}
+          <Link href="/signup" style={{ color: 'var(--color-primary)', fontWeight: 700, textDecoration: 'none', marginLeft: '0.5rem' }}>
+            Signup
+          </Link>
+        </div>
+      </header>
 
-      <motion.div
-        className="glass-card"
-        initial={{ opacity: 0, y: 30, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        style={{
-          width: '100%',
-          maxWidth: '440px',
-          padding: '2.5rem',
-          position: 'relative',
-          zIndex: 1,
-        }}
-      >
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-          <h1 style={{ fontSize: '1.75rem', fontWeight: 700, marginBottom: '0.5rem' }}>
-            Welcome <span className="gradient-text">Back</span>
-          </h1>
-          <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.95rem' }}>
-            Sign in to access your dashboard
+      <main style={{ flex: 1, display: 'flex', paddingTop: '80px' }}>
+        {/* Left Side: Editorial (Consistent with Sign Up) */}
+        <section style={{ 
+          flex: 1, 
+          padding: '4rem 6rem', 
+          display: 'flex', 
+          flexDirection: 'column', 
+          justifyContent: 'center',
+          gap: '2.5rem'
+        }} className="editorial-section">
+          <div style={{ maxWidth: '540px' }}>
+            <span style={{ 
+              fontSize: '0.75rem', 
+              fontWeight: 800, 
+              color: 'var(--color-primary)', 
+              letterSpacing: '0.15em',
+              textTransform: 'uppercase',
+              marginBottom: '1.5rem',
+              display: 'block'
+            }}>
+              Findr
+            </span>
+            <h1 style={{ 
+              fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', 
+              fontWeight: 800, 
+              lineHeight: 1.1, 
+              marginBottom: '1.5rem',
+              letterSpacing: '-0.02em',
+              fontFamily: 'var(--font-manrope)'
+            }}>
+              Welcome back to your <span style={{ color: 'var(--color-primary)' }}>workspace.</span>
+            </h1>
+            <p style={{ 
+              fontSize: '1.1rem', 
+              color: 'var(--color-on-surface-variant)', 
+              lineHeight: 1.6,
+              opacity: 0.8
+            }}>
+              Join an ecosystem designed for high-intent career discovery. Where students meet recruiters in a space built for meaningful professional growth.
+            </p>
+          </div>
+
+          <div style={{ position: 'relative', width: '100%', maxWidth: '600px', borderRadius: 'var(--radius-xl)', overflow: 'hidden', boxShadow: 'var(--shadow-ambient)' }}>
+            <img 
+              src="/images/download(11).jpg" 
+              alt="Workspace" 
+              style={{ width: '100%', height: 'auto', display: 'block', minHeight: '300px', objectFit: 'cover' }}
+              onError={(e) => {
+                e.currentTarget.src = 'https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&q=80&w=1200'
+              }}
+            />
+          </div>
+        </section>
+
+        {/* Right Side: Login Card */}
+        <section style={{ 
+          flex: 1, 
+          background: 'var(--color-surface-container)', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          padding: '2rem'
+        }} className="form-section">
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="surface-card"
+            style={{ 
+              width: '100%', 
+              maxWidth: '480px', 
+              padding: '3rem', 
+              boxShadow: 'var(--shadow-ambient)',
+              background: '#ffffff'
+            }}
+          >
+            <h2 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '0.5rem', fontFamily: 'var(--font-manrope)' }}>Login</h2>
+            <p style={{ color: 'var(--color-on-surface-variant)', fontSize: '0.9rem', marginBottom: '2.5rem' }}>Welcome back! Please enter your details.</p>
+
+            <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              <div>
+                <label style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.05em', marginBottom: '0.5rem', display: 'block', color: 'var(--color-on-surface)' }}>EMAIL ADDRESS</label>
+                <input 
+                  type="email" 
+                  placeholder="alex@atelier.com" 
+                  className="input-field" 
+                  style={{ background: 'var(--color-surface-container-low)', border: 'none' }}
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  required
+                />
+              </div>
+
+              <div>
+                <label style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.05em', marginBottom: '0.5rem', display: 'block', color: 'var(--color-on-surface)' }}>PASSWORD</label>
+                <div style={{ position: 'relative' }}>
+                  <input 
+                    type={showPw ? 'text' : 'password'} 
+                    placeholder="••••••••" 
+                    className="input-field" 
+                    style={{ background: 'var(--color-surface-container-low)', border: 'none', paddingRight: '3rem' }}
+                    value={form.password}
+                    onChange={(e) => setForm({ ...form, password: e.target.value })}
+                    required
+                  />
+                  <button 
+                    type="button" 
+                    onClick={() => setShowPw(!showPw)}
+                    style={{ position: 'absolute', right: '1rem', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', opacity: 0.5 }}
+                  >
+                    {showPw ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Link href="#" style={{ fontSize: '0.8rem', color: 'var(--color-primary)', textDecoration: 'none', fontWeight: 600 }}>Forgot password?</Link>
+              </div>
+
+              <button 
+                type="submit" 
+                className="btn-primary" 
+                style={{ width: '100%', padding: '1rem', marginTop: '1rem', borderRadius: 'var(--radius-sm)' }}
+                disabled={loading}
+              >
+                {loading ? 'Logging in...' : 'Sign In'}
+              </button>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', margin: '1rem 0' }}>
+                <div style={{ flex: 1, height: '1px', background: 'var(--color-surface-variant)' }} />
+                <span style={{ fontSize: '0.7rem', color: 'var(--color-on-surface-variant)', fontWeight: 600 }}>OR CONTINUE WITH</span>
+                <div style={{ flex: 1, height: '1px', background: 'var(--color-surface-variant)' }} />
+              </div>
+
+              <button 
+                type="button" 
+                className="btn-secondary" 
+                style={{ width: '100%', padding: '1rem', borderRadius: 'var(--radius-sm)', gap: '0.75rem', fontSize: '0.9rem' }}
+              >
+                <Globe size={20} />
+                Sign in with Google
+              </button>
+            </form>
+
+            <p style={{ marginTop: '2rem', textAlign: 'center', fontSize: '0.75rem', color: 'var(--color-on-surface-variant)', lineHeight: 1.5 }}>
+              By logging in, you agree to our <Link href="#" style={{ color: 'var(--color-primary)', fontWeight: 600, textDecoration: 'none' }}>Terms of Service</Link><br />
+              and <Link href="#" style={{ color: 'var(--color-primary)', fontWeight: 600, textDecoration: 'none' }}>Privacy Policy</Link>.
+            </p>
+          </motion.div>
+        </section>
+      </main>
+
+      {/* Footer (Consistent with Sign Up) */}
+      <footer style={{ padding: '3rem 6rem', background: '#ffffff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderTop: '1px solid var(--color-surface-variant)' }}>
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+            <Sparkles size={18} color="var(--color-primary)" />
+            <span style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--color-primary)' }}>Findr</span>
+          </div>
+          <p style={{ fontSize: '0.8rem', color: 'var(--color-on-surface-variant)' }}>
+            © 2024 Findr. The workspace for Careers.
           </p>
         </div>
+        <div style={{ display: 'flex', gap: '2rem' }}>
+          {['Privacy Policy', 'Terms of Service', 'Help Center', 'Contact Us'].map(link => (
+            <Link key={link} href="#" style={{ fontSize: '0.8rem', color: 'var(--color-on-surface-variant)', textDecoration: 'none', fontWeight: 500 }}>
+              {link}
+            </Link>
+          ))}
+        </div>
+      </footer>
 
-        {error && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            style={{
-              padding: '0.75rem 1rem',
-              borderRadius: 'var(--radius-md)',
-              background: 'rgba(239, 68, 68, 0.1)',
-              border: '1px solid rgba(239, 68, 68, 0.2)',
-              color: '#f87171',
-              fontSize: '0.85rem',
-              marginBottom: '1.25rem',
-            }}
-          >
-            {error}
-          </motion.div>
-        )}
-
-        <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-          <div>
-            <label className="label">Email</label>
-            <div style={{ position: 'relative' }}>
-              <Mail
-                size={16}
-                style={{
-                  position: 'absolute',
-                  left: '0.85rem',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  color: 'var(--color-text-muted)',
-                }}
-              />
-              <input
-                type="email"
-                className="input-field"
-                placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                style={{ paddingLeft: '2.5rem' }}
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="label">Password</label>
-            <div style={{ position: 'relative' }}>
-              <Lock
-                size={16}
-                style={{
-                  position: 'absolute',
-                  left: '0.85rem',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  color: 'var(--color-text-muted)',
-                }}
-              />
-              <input
-                type={showPw ? 'text' : 'password'}
-                className="input-field"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem' }}
-              />
-              <button
-                type="button"
-                onClick={() => setShowPw(!showPw)}
-                style={{
-                  position: 'absolute',
-                  right: '0.85rem',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  background: 'none',
-                  border: 'none',
-                  color: 'var(--color-text-muted)',
-                  cursor: 'pointer',
-                }}
-              >
-                {showPw ? <EyeOff size={16} /> : <Eye size={16} />}
-              </button>
-            </div>
-          </div>
-
-          <button type="submit" className="btn-primary" disabled={loading} style={{ padding: '0.85rem', marginTop: '0.5rem' }}>
-            {loading ? (
-              <div
-                style={{
-                  width: 18,
-                  height: 18,
-                  border: '2px solid rgba(255,255,255,0.3)',
-                  borderTopColor: '#fff',
-                  borderRadius: '50%',
-                  animation: 'spin 0.6s linear infinite',
-                }}
-              />
-            ) : (
-              <>
-                <LogIn size={18} />
-                Sign In
-              </>
-            )}
-          </button>
-        </form>
-
-        <p
-          style={{
-            textAlign: 'center',
-            marginTop: '1.5rem',
-            fontSize: '0.9rem',
-            color: 'var(--color-text-secondary)',
-          }}
-        >
-          Don&apos;t have an account?{' '}
-          <Link
-            href="/signup"
-            style={{
-              color: 'var(--color-primary-light)',
-              textDecoration: 'none',
-              fontWeight: 500,
-            }}
-          >
-            Sign Up
-          </Link>
-        </p>
-      </motion.div>
-
-      <style jsx>{`
-        @keyframes spin {
-          to {
-            transform: rotate(360deg);
-          }
+      <style jsx global>{`
+        @media (max-width: 1024px) {
+          main { flex-direction: column; }
+          .editorial-section { padding: 4rem 2rem; }
+          .form-section { padding: 3rem 1.5rem; }
+          footer { flex-direction: column; gap: 2rem; padding: 2rem 1.5rem; }
         }
       `}</style>
     </div>
