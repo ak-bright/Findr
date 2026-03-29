@@ -61,7 +61,7 @@ export default function LoginPage() {
         zIndex: 10
       }}>
         <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
-          <Image src="/images/logo.png" alt="Findr" width={100} height={36} style={{ objectFit: 'contain' }} />
+          <Image src="/images/logo.png" alt="Findr" width={120} height={44} style={{ objectFit: 'contain' }} />
         </Link>
         <div style={{ fontSize: '0.9rem', color: 'var(--color-on-surface-variant)' }}>
           Don&apos;t have an account?{' '}
@@ -83,7 +83,7 @@ export default function LoginPage() {
         }} className="editorial-section">
           <div style={{ maxWidth: '540px' }}>
             <div style={{ marginBottom: '1.5rem' }}>
-              <Image src="/images/logo.png" alt="Findr" width={120} height={44} style={{ objectFit: 'contain' }} />
+              <Image src="/images/logo.png" alt="Findr" width={145} height={53} style={{ objectFit: 'contain' }} />
             </div>
             <h1 style={{ 
               fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', 
@@ -230,7 +230,7 @@ export default function LoginPage() {
       {/* Footer */}
       <footer style={{ padding: '2rem 3rem', background: '#ffffff', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--color-surface-variant)', flexWrap: 'wrap', gap: '1rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <Image src="/images/logo.png" alt="Findr" width={72} height={26} style={{ objectFit: 'contain' }} />
+          <Image src="/images/logo.png" alt="Findr" width={88} height={32} style={{ objectFit: 'contain' }} />
           <p style={{ fontSize: '0.8rem', color: 'var(--color-on-surface-variant)' }}>
             © 2024 Findr. The workspace for Careers.
           </p>

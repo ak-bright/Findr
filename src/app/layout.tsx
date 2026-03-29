@@ -18,7 +18,12 @@ export const metadata: Metadata = {
   description:
     'Connect with internships, NSS placements, and entry-level jobs. AI-powered CV review and smart job matching for students and recent graduates.',
   icons: {
-    icon: '/images/logo.png',
+    icon: [
+      { url: '/images/logo.png', sizes: '16x16' },
+      { url: '/images/logo.png', sizes: '32x32' },
+      { url: '/images/logo.png', sizes: '192x192' },
+      { url: '/images/logo.png', sizes: '512x512' },
+    ],
   },
 };
 

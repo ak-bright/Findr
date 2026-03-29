@@ -43,8 +43,8 @@ export default function Navbar() {
           <Image
             src="/images/logo.png"
             alt="Findr"
-            width={90}
-            height={32}
+            width={110}
+            height={40}
             style={{ objectFit: 'contain' }}
           />
         </Link>
