@@ -484,19 +484,6 @@ export default function DashboardPage() {
           </motion.div>
         </div>
       </main>
-
-      <style jsx global>{`
-        @media (max-width: 900px) {
-          .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          .bottom-grid { grid-template-columns: 1fr !important; }
-        }
-        @media (max-width: 640px) {
-          .stats-grid { grid-template-columns: 1fr !important; }
-          .desktop-sidebar { display: none !important; }
-          .mobile-menu-btn { display: block !important; }
-          .mobile-header { display: flex !important; }
-        }
-      `}</style>
     </div>
   );
 }
