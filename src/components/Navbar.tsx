@@ -206,6 +206,24 @@ export default function Navbar() {
           .mobile-toggle {
             display: block !important;
           }
+
+          /* Make navbar and its inner container span the full viewport width on mobile
+             and avoid horizontal overflow caused by padding/margins */
+          nav, nav > div {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            padding: 0 !important;
+            box-sizing: border-box;
+            overflow-x: hidden;
+          }
+
+          .mobile-menu {
+            width: 100% !important;
+            box-sizing: border-box;
+          }
         }
         @media (min-width: 769px) {
           .mobile-menu {
@@ -215,11 +233,13 @@ export default function Navbar() {
         @media (max-width: 640px) {
           nav > div {
             padding: 0 1rem !important;
+            box-sizing: border-box;
           }
         }
         @media (max-width: 480px) {
           nav > div {
             padding: 0 0.75rem !important;
+            box-sizing: border-box;
           }
         }
       `}</style>
