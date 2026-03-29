@@ -135,6 +135,17 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+}
+
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6, .font-display {
@@ -348,6 +359,14 @@ h1, h2, h3, h4, h5, h6, .font-display {
   .jobs-grid { grid-template-columns: 1fr; }
   .page-container { padding: 1.5rem 1rem; }
   .spacing-12 { margin-bottom: 2.5rem; }
+  
+  .jobs-main { padding: 1.5rem 1rem !important; }
+  .jobs-search { flex-direction: column !important; }
+  .jobs-search-input-wrap { margin-bottom: 1rem !important; }
+}
+
+@media (max-width: 640px) {
+  .jobs-main { padding: 1rem 0.75rem !important; }
 }
 
 /* Elevated ambient background */

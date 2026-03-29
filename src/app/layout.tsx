@@ -27,6 +27,12 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -35,12 +41,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${manrope.variable}`}
+        className={`${inter.variable} ${manrope.variable} layout-wrapper`}
         style={{
           fontFamily: 'var(--font-inter), system-ui, sans-serif',
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: '100vh',
         }}
       >
         <MainLayoutWrapper>{children}</MainLayoutWrapper>

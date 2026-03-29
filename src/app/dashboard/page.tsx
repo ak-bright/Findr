@@ -24,10 +24,10 @@ import {
 
 const sidebarLinks = [
   { icon: LayoutDashboard, label: 'Dashboard', href: '/dashboard', active: true },
-  { icon: Bookmark, label: 'Saved Jobs', href: '/saved' },
-  { icon: MessageSquare, label: 'Messages', href: '/messages' },
-  { icon: Calendar, label: 'Interviews', href: '/interviews' },
-  { icon: BarChart2, label: 'Analytics', href: '/analytics' },
+  { icon: Bookmark, label: 'Saved Jobs', href: '#' },
+  { icon: MessageSquare, label: 'Messages', href: '#' },
+  { icon: Calendar, label: 'Interviews', href: '#' },
+  { icon: BarChart2, label: 'Analytics', href: '#' },
 ];
 
 const mockPostings = [

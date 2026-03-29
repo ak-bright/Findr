@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Bookmark, ArrowRight } from 'lucide-react';
+import { Search, Bookmark, ArrowRight, ChevronLeft, SlidersHorizontal } from 'lucide-react';
 import Link from 'next/link';
 import { MOCK_JOBS } from '@/lib/mock-data';
 
@@ -42,6 +42,7 @@ export default function JobsPage() {
   const [selectedFields, setSelectedFields] = useState<string[]>([]);
   const [selectedType, setSelectedType] = useState<string>('');
   const [savedJobs, setSavedJobs] = useState<string[]>([]);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   const toggleLocation = (loc: string) =>
     setSelectedLocations((prev) => prev.includes(loc) ? prev.filter((l) => l !== loc) : [...prev, loc]);
@@ -91,9 +92,9 @@ export default function JobsPage() {
   return (
     <div style={{ display: 'flex', minHeight: 'calc(100vh - 64px)', background: '#f7f9fb' }}>
       {/* Filter Sidebar */}
-      <aside style={{
-        width: '220px',
-        padding: '2rem 1.25rem',
+      <aside className="mobile-hidden" style={{
+        width: isSidebarCollapsed ? '60px' : '220px',
+        padding: isSidebarCollapsed ? '2rem 0.5rem' : '2rem 1.25rem',
         background: '#ffffff',
         borderRight: '1px solid #eceef0',
         flexShrink: 0,
@@ -101,79 +102,95 @@ export default function JobsPage() {
         top: '64px',
         height: 'calc(100vh - 64px)',
         overflowY: 'auto',
+        overflowX: 'hidden',
+        transition: 'all 0.3s ease',
       }}>
-        <h2 style={{ fontSize: '1rem', fontWeight: 800, marginBottom: '1.5rem', fontFamily: 'var(--font-manrope)' }}>Discovery Filters</h2>
-
-        {/* Location */}
-        <div style={{ marginBottom: '1.75rem' }}>
-          <p style={{ fontSize: '0.65rem', fontWeight: 800, color: '#9ca3af', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>LOCATION</p>
-          {LOCATIONS.map((loc) => (
-            <label key={loc} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.55rem', cursor: 'pointer', fontSize: '0.9rem' }}>
-              <input
-                type="checkbox"
-                checked={selectedLocations.includes(loc)}
-                onChange={() => toggleLocation(loc)}
-                style={{ accentColor: 'var(--color-primary)', width: '16px', height: '16px' }}
-              />
-              {loc}
-            </label>
-          ))}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: isSidebarCollapsed ? 'center' : 'space-between', marginBottom: '1.5rem' }}>
+          {!isSidebarCollapsed && (
+            <h2 style={{ fontSize: '1rem', fontWeight: 800, fontFamily: 'var(--font-manrope)', margin: 0 }}>Discovery Filters</h2>
+          )}
+          <button 
+            title={isSidebarCollapsed ? "Expand filters" : "Collapse filters"}
+            onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)} 
+            style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--color-primary)', display: 'flex' }}>
+            {isSidebarCollapsed ? <SlidersHorizontal size={20} /> : <ChevronLeft size={20} />}
+          </button>
         </div>
 
-        {/* Field */}
-        <div style={{ marginBottom: '1.75rem' }}>
-          <p style={{ fontSize: '0.65rem', fontWeight: 800, color: '#9ca3af', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>FIELD</p>
-          {FIELDS.map((f) => (
-            <label key={f} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.55rem', cursor: 'pointer', fontSize: '0.9rem' }}>
-              <input
-                type="checkbox"
-                checked={selectedFields.includes(f)}
-                onChange={() => toggleField(f)}
-                style={{ accentColor: 'var(--color-primary)', width: '16px', height: '16px' }}
-              />
-              {f}
-            </label>
-          ))}
-        </div>
+        {!isSidebarCollapsed && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}>
+            {/* Location */}
+            <div style={{ marginBottom: '1.75rem' }}>
+              <p style={{ fontSize: '0.65rem', fontWeight: 800, color: '#9ca3af', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>LOCATION</p>
+              {LOCATIONS.map((loc) => (
+                <label key={loc} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.55rem', cursor: 'pointer', fontSize: '0.9rem' }}>
+                  <input
+                    type="checkbox"
+                    checked={selectedLocations.includes(loc)}
+                    onChange={() => toggleLocation(loc)}
+                    style={{ accentColor: 'var(--color-primary)', width: '16px', height: '16px' }}
+                  />
+                  {loc}
+                </label>
+              ))}
+            </div>
 
-        {/* Opportunity Type */}
-        <div style={{ marginBottom: '2rem' }}>
-          <p style={{ fontSize: '0.65rem', fontWeight: 800, color: '#9ca3af', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>OPPORTUNITY TYPE</p>
-          {OPP_TYPES.map((type) => (
-            <label key={type} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.55rem', cursor: 'pointer', fontSize: '0.9rem' }}>
-              <input
-                type="radio"
-                name="opp-type"
-                checked={selectedType === type}
-                onChange={() => setSelectedType(type)}
-                style={{ accentColor: 'var(--color-primary)', width: '16px', height: '16px' }}
-              />
-              {type}
-            </label>
-          ))}
-        </div>
+            {/* Field */}
+            <div style={{ marginBottom: '1.75rem' }}>
+              <p style={{ fontSize: '0.65rem', fontWeight: 800, color: '#9ca3af', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>FIELD</p>
+              {FIELDS.map((f) => (
+                <label key={f} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.55rem', cursor: 'pointer', fontSize: '0.9rem' }}>
+                  <input
+                    type="checkbox"
+                    checked={selectedFields.includes(f)}
+                    onChange={() => toggleField(f)}
+                    style={{ accentColor: 'var(--color-primary)', width: '16px', height: '16px' }}
+                  />
+                  {f}
+                </label>
+              ))}
+            </div>
 
-        <button
-          onClick={resetFilters}
-          style={{
-            width: '100%', padding: '0.6rem 1rem', background: '#f1f3f5',
-            border: 'none', borderRadius: 'var(--radius-md)', cursor: 'pointer',
-            fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-on-surface-variant)',
-          }}
-        >
-          Reset All Filters
-        </button>
+            {/* Opportunity Type */}
+            <div style={{ marginBottom: '2rem' }}>
+              <p style={{ fontSize: '0.65rem', fontWeight: 800, color: '#9ca3af', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>OPPORTUNITY TYPE</p>
+              {OPP_TYPES.map((type) => (
+                <label key={type} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.55rem', cursor: 'pointer', fontSize: '0.9rem' }}>
+                  <input
+                    type="radio"
+                    name="opp-type"
+                    checked={selectedType === type}
+                    onChange={() => setSelectedType(type)}
+                    style={{ accentColor: 'var(--color-primary)', width: '16px', height: '16px' }}
+                  />
+                  {type}
+                </label>
+              ))}
+            </div>
+
+            <button
+              onClick={resetFilters}
+              style={{
+                width: '100%', padding: '0.6rem 1rem', background: '#f1f3f5',
+                border: 'none', borderRadius: 'var(--radius-md)', cursor: 'pointer',
+                fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-on-surface-variant)',
+              }}
+            >
+              Reset All Filters
+            </button>
+          </motion.div>
+        )}
       </aside>
 
       {/* Main content */}
-      <main style={{ flex: 1, padding: '2.5rem 2rem' }}>
+      <main className="jobs-main" style={{ flex: 1, padding: '2.5rem 2rem', minWidth: 0 }}>
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
           <h1 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '0.4rem', fontFamily: 'var(--font-manrope)' }}>Find your next move</h1>
           <p style={{ color: 'var(--color-on-surface-variant)', marginBottom: '1.75rem', fontSize: '0.95rem' }}>Curated opportunities for high-potential talent in Ghana.</p>
 
           {/* Search bar */}
-          <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '2rem' }}>
-            <div style={{ position: 'relative', flex: 1 }}>
+          <div className="jobs-search" style={{ display: 'flex', gap: '0.75rem', marginBottom: '2rem' }}>
+            <div className="jobs-search-input-wrap" style={{ position: 'relative', flex: 1 }}>
               <Search size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: '#9ca3af' }} />
               <input
                 type="text"
