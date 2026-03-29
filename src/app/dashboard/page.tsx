@@ -17,6 +17,9 @@ import {
   TrendingUp,
   ChevronLeft,
   ChevronRight,
+  ArrowLeft,
+  Menu,
+  X,
 } from 'lucide-react';
 
 const sidebarLinks = [
@@ -56,6 +59,7 @@ const statusConfig: Record<StatusType, { label: string; bg: string; color: strin
 export default function DashboardPage() {
   const [filterTab, setFilterTab] = useState<'all' | 'drafts' | 'archived'>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const filtered = mockPostings.filter((p) => {
     if (filterTab === 'drafts') return p.status === 'draft';
@@ -77,7 +81,9 @@ export default function DashboardPage() {
         flexShrink: 0,
         position: 'sticky',
         top: 0,
-      }}>
+      }}
+      className="desktop-sidebar"
+      >
         {/* User badge */}
         <div style={{
           display: 'flex',
@@ -153,11 +159,150 @@ export default function DashboardPage() {
         </Link>
       </aside>
 
+      {/* Mobile Sidebar Overlay */}
+      {mobileMenuOpen && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            background: 'rgba(0,0,0,0.5)',
+            zIndex: 1000,
+          }}
+          onClick={() => setMobileMenuOpen(false)}
+        >
+          <aside style={{
+            width: '280px',
+            height: '100vh',
+            background: '#ffffff',
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '2rem 1rem',
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            zIndex: 1001,
+          }}>
+            {/* Close button */}
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              style={{
+                alignSelf: 'flex-end',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '0.5rem',
+                marginBottom: '1rem',
+              }}
+            >
+              <X size={24} />
+            </button>
+
+            {/* User badge */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              padding: '0.75rem 1rem',
+              background: 'var(--color-primary)',
+              borderRadius: 'var(--radius-md)',
+              marginBottom: '2rem',
+            }}>
+              <div style={{
+                width: '36px',
+                height: '36px',
+                borderRadius: 'var(--radius-full)',
+                background: 'rgba(255,255,255,0.25)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#fff',
+                fontWeight: 800,
+                fontSize: '0.95rem',
+                flexShrink: 0,
+              }}>A</div>
+              <div>
+                <div style={{ color: '#fff', fontWeight: 700, fontSize: '0.85rem' }}>The Atelier</div>
+                <div style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Premium Discovery</div>
+              </div>
+            </div>
+
+            {/* Nav Links */}
+            <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', flex: 1 }}>
+              {sidebarLinks.map(({ icon: Icon, label, href, active }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.75rem',
+                    padding: '0.7rem 1rem',
+                    borderRadius: 'var(--radius-md)',
+                    textDecoration: 'none',
+                    fontSize: '0.9rem',
+                    fontWeight: active ? 700 : 500,
+                    color: active ? 'var(--color-primary)' : 'var(--color-on-surface-variant)',
+                    background: active ? 'var(--color-primary-fixed)' : 'transparent',
+                    transition: 'all 0.15s',
+                  }}
+                >
+                  <Icon size={18} />
+                  {label}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Bottom actions */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', marginTop: 'auto', paddingTop: '1rem', borderTop: '1px solid #eceef0' }}>
+              <Link href="#" onClick={() => setMobileMenuOpen(false)} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.7rem 1rem', borderRadius: 'var(--radius-md)', textDecoration: 'none', fontSize: '0.9rem', color: 'var(--color-on-surface-variant)' }}>
+                <HelpCircle size={18} /> Help Center
+              </Link>
+              <Link href="/login" onClick={() => setMobileMenuOpen(false)} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.7rem 1rem', borderRadius: 'var(--radius-md)', textDecoration: 'none', fontSize: '0.9rem', color: 'var(--color-on-surface-variant)' }}>
+                <LogOut size={18} /> Sign Out
+              </Link>
+            </div>
+
+            {/* Post a Job CTA */}
+            <Link
+              href="/post-job"
+              onClick={() => setMobileMenuOpen(false)}
+              className="btn-primary"
+              style={{ textDecoration: 'none', width: '100%', justifyContent: 'center', marginTop: '1rem', borderRadius: 'var(--radius-md)', padding: '0.75rem' }}
+            >
+              <Plus size={18} /> Post a Job
+            </Link>
+          </aside>
+        </div>
+      )}
+
       {/* ---- Main content ---- */}
       <main style={{ flex: 1, padding: '2.5rem 2rem', overflowY: 'auto' }}>
+        {/* Mobile Header */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }} className="mobile-header">
+          <button
+            onClick={() => setMobileMenuOpen(true)}
+            style={{
+              display: 'none',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '0.5rem',
+            }}
+            className="mobile-menu-btn"
+          >
+            <Menu size={24} />
+          </button>
+        </div>
         {/* Header row */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
+            <Link href="/jobs" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-primary)', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 600, marginBottom: '0.5rem' }}>
+              <ArrowLeft size={16} /> Back to Jobs
+            </Link>
             <h1 style={{ fontSize: '1.75rem', fontWeight: 800, marginBottom: '0.25rem', fontFamily: 'var(--font-manrope)' }}>Recruiter Dashboard</h1>
             <p style={{ color: 'var(--color-on-surface-variant)', fontSize: '0.9rem' }}>Manage your active listings and track candidate flow across the atelier.</p>
           </div>
@@ -189,7 +334,7 @@ export default function DashboardPage() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem', marginBottom: '2rem' }}
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '2rem' }}
           className="stats-grid"
         >
           {[
@@ -232,7 +377,8 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '600px' }}>
             <thead>
               <tr style={{ borderBottom: '1px solid #f1f3f5' }}>
                 {['POSITION NAME', 'STATUS', 'APPLICANTS', 'ENGAGEMENT', 'ACTIONS'].map((col) => (
@@ -275,6 +421,7 @@ export default function DashboardPage() {
               })}
             </tbody>
           </table>
+          </div>
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid #f1f3f5' }}>
             <p style={{ fontSize: '0.82rem', color: '#9ca3af' }}>Showing {filtered.length} of {mockPostings.length} postings</p>
@@ -345,6 +492,9 @@ export default function DashboardPage() {
         }
         @media (max-width: 640px) {
           .stats-grid { grid-template-columns: 1fr !important; }
+          .desktop-sidebar { display: none !important; }
+          .mobile-menu-btn { display: block !important; }
+          .mobile-header { display: flex !important; }
         }
       `}</style>
     </div>
