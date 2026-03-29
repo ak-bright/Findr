@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   title: 'Findr — Find Your Next Opportunity',
   description:
     'Connect with internships, NSS placements, and entry-level jobs. AI-powered CV review and smart job matching for students and recent graduates.',
+  icons: {
+    icon: '/images/logo.png',
+  },
 };
 
 export default function RootLayout({

@@ -41,7 +41,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', flexShrink: 0 }}>
           <Image
-            src="/images/findrlogo.png"
+            src="/images/logo.png"
             alt="Findr"
             width={90}
             height={32}

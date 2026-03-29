@@ -17,7 +17,7 @@ export default function Footer() {
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
         <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-          <Image src="/images/findrlogo.png" alt="Findr" width={72} height={26} style={{ objectFit: 'contain' }} />
+          <Image src="/images/logo.png" alt="Findr" width={72} height={26} style={{ objectFit: 'contain' }} />
         </Link>
         <span style={{ fontSize: '0.8rem', color: 'var(--color-on-surface-variant)' }}>
           © 2024 Findr. All rights reserved.
