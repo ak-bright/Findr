@@ -11,7 +11,6 @@ import {
   PlusCircle,
   MapPin,
   Calendar,
-  User,
   FileText,
 } from 'lucide-react';
 import SkillTag from './SkillTag';

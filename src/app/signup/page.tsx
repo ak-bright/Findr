@@ -4,15 +4,17 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Eye, EyeOff, Globe } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Eye, EyeOff, Globe } from 'lucide-react';
 import { UserRole } from '@/lib/types';
+import { createClient } from '@/lib/supabase/client';
 
 export default function SignupPage() {
   const router = useRouter();
   const [role, setRole] = useState<UserRole>('user');
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -22,9 +24,36 @@ export default function SignupPage() {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    
-    // Simulate signup - ensuring redirect works
+    setError('');
+
+    const supabase = createClient();
+    const { error: authError } = await supabase.auth.signUp({
+      email: form.email,
+      password: form.password,
+      options: {
+        data: {
+          full_name: form.name,
+          role: role,
+        },
+      },
+    });
+
+    if (authError) {
+      setError(authError.message);
+      setLoading(false);
+      return;
+    }
+
     router.push('/dashboard');
+    router.refresh();
+  };
+
+  const handleGoogleSignup = async () => {
+    const supabase = createClient();
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: `${window.location.origin}/auth/callback` },
+    });
   };
 
   return (
@@ -40,9 +69,8 @@ export default function SignupPage() {
         width: '100%',
         zIndex: 10
       }}>
-        <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-          <Sparkles size={24} color="var(--color-primary)" />
-          <span style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-primary)' }}>Findr</span>
+        <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+          <Image src="/images/findrlogo.png" alt="Findr" width={100} height={36} style={{ objectFit: 'contain' }} />
         </Link>
         <div style={{ fontSize: '0.9rem', color: 'var(--color-on-surface-variant)' }}>
           Already have an account?{' '}
@@ -63,17 +91,9 @@ export default function SignupPage() {
           gap: '2.5rem'
         }} className="editorial-section">
           <div style={{ maxWidth: '540px' }}>
-            <span style={{ 
-              fontSize: '0.75rem', 
-              fontWeight: 800, 
-              color: 'var(--color-primary)', 
-              letterSpacing: '0.15em',
-              textTransform: 'uppercase',
-              marginBottom: '1.5rem',
-              display: 'block'
-            }}>
-              Findr
-            </span>
+            <div style={{ marginBottom: '1.5rem' }}>
+              <Image src="/images/findrlogo.png" alt="Findr" width={120} height={44} style={{ objectFit: 'contain' }} />
+            </div>
             <h1 style={{ 
               fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', 
               fontWeight: 800, 
@@ -96,12 +116,11 @@ export default function SignupPage() {
 
           <div style={{ position: 'relative', width: '100%', maxWidth: '600px', borderRadius: 'var(--radius-xl)', overflow: 'hidden', boxShadow: 'var(--shadow-ambient)' }}>
             <Image 
-              src="/images/download(11).jpg" 
+              src="/images/workspace.jpg" 
               alt="Workspace" 
               width={600}
               height={400}
               style={{ width: '100%', height: 'auto', display: 'block', minHeight: '300px', objectFit: 'cover' }}
-              unoptimized
             />
           </div>
         </section>
@@ -128,7 +147,7 @@ export default function SignupPage() {
             }}
           >
             <h2 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '0.5rem', fontFamily: 'var(--font-manrope)' }}>Create Account</h2>
-            <p style={{ color: 'var(--color-on-surface-variant)', fontSize: '0.9rem', marginBottom: '2.5rem' }}>Select your role to get started</p>
+            <p style={{ color: 'var(--color-on-surface-variant)', fontSize: '0.9rem', marginBottom: '2rem' }}>Select your role to get started</p>
 
             {/* Role Selector */}
             <div style={{ 
@@ -176,12 +195,25 @@ export default function SignupPage() {
               </button>
             </div>
 
+            {error && (
+              <div style={{ 
+                background: '#fee2e2', 
+                color: '#b91c1c', 
+                padding: '0.75rem 1rem', 
+                borderRadius: 'var(--radius-md)', 
+                fontSize: '0.875rem',
+                marginBottom: '1.5rem'
+              }}>
+                {error}
+              </div>
+            )}
+
             <form onSubmit={handleSignup} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
               <div>
                 <label style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.05em', marginBottom: '0.5rem', display: 'block', color: 'var(--color-on-surface)' }}>FULL NAME</label>
                 <input 
                   type="text" 
-                  placeholder="Alex Sterling" 
+                  placeholder="Kofi Mensah" 
                   className="input-field" 
                   style={{ background: 'var(--color-surface-container-low)', border: 'none' }}
                   value={form.name}
@@ -194,7 +226,7 @@ export default function SignupPage() {
                 <label style={{ fontSize: '0.75rem', fontWeight: 800, letterSpacing: '0.05em', marginBottom: '0.5rem', display: 'block', color: 'var(--color-on-surface)' }}>EMAIL ADDRESS</label>
                 <input 
                   type="email" 
-                  placeholder="alex@atelier.com" 
+                  placeholder="you@example.com" 
                   className="input-field" 
                   style={{ background: 'var(--color-surface-container-low)', border: 'none' }}
                   value={form.email}
@@ -208,11 +240,12 @@ export default function SignupPage() {
                 <div style={{ position: 'relative' }}>
                   <input 
                     type={showPw ? 'text' : 'password'} 
-                    placeholder="••••••••" 
+                    placeholder="Min. 8 characters" 
                     className="input-field" 
                     style={{ background: 'var(--color-surface-container-low)', border: 'none', paddingRight: '3rem' }}
                     value={form.password}
                     onChange={(e) => setForm({ ...form, password: e.target.value })}
+                    minLength={8}
                     required
                   />
                   <button 
@@ -228,13 +261,13 @@ export default function SignupPage() {
               <button 
                 type="submit" 
                 className="btn-primary" 
-                style={{ width: '100%', padding: '1rem', marginTop: '1rem', borderRadius: 'var(--radius-sm)' }}
+                style={{ width: '100%', padding: '1rem', borderRadius: 'var(--radius-sm)' }}
                 disabled={loading}
               >
-                {loading ? 'Creating Account...' : 'Create Workspace'}
+                {loading ? 'Creating Account...' : 'Create Account'}
               </button>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', margin: '1rem 0' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <div style={{ flex: 1, height: '1px', background: 'var(--color-surface-variant)' }} />
                 <span style={{ fontSize: '0.7rem', color: 'var(--color-on-surface-variant)', fontWeight: 600 }}>OR CONTINUE WITH</span>
                 <div style={{ flex: 1, height: '1px', background: 'var(--color-surface-variant)' }} />
@@ -243,6 +276,7 @@ export default function SignupPage() {
               <button 
                 type="button" 
                 className="btn-secondary" 
+                onClick={handleGoogleSignup}
                 style={{ width: '100%', padding: '1rem', borderRadius: 'var(--radius-sm)', gap: '0.75rem', fontSize: '0.9rem' }}
               >
                 <Globe size={20} />
@@ -259,12 +293,9 @@ export default function SignupPage() {
       </main>
 
       {/* Footer */}
-      <footer style={{ padding: '3rem 6rem', background: '#ffffff', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderTop: '1px solid var(--color-surface-variant)' }}>
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
-            <Sparkles size={18} color="var(--color-primary)" />
-            <span style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--color-primary)' }}>Findr</span>
-          </div>
+      <footer style={{ padding: '2rem 3rem', background: '#ffffff', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--color-surface-variant)', flexWrap: 'wrap', gap: '1rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <Image src="/images/findrlogo.png" alt="Findr" width={72} height={26} style={{ objectFit: 'contain' }} />
           <p style={{ fontSize: '0.8rem', color: 'var(--color-on-surface-variant)' }}>
             © 2024 Findr. The workspace for Careers.
           </p>
@@ -281,9 +312,8 @@ export default function SignupPage() {
       <style jsx global>{`
         @media (max-width: 1024px) {
           main { flex-direction: column; }
-          .editorial-section { padding: 4rem 2rem; }
+          .editorial-section { padding: 3rem 2rem; }
           .form-section { padding: 3rem 1.5rem; }
-          footer { flex-direction: column; gap: 2rem; padding: 2rem 1.5rem; }
         }
       `}</style>
     </div>

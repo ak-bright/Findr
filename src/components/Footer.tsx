@@ -1,36 +1,44 @@
-import { Sparkles } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Footer() {
   return (
     <footer
       style={{
-        borderTop: '1px solid var(--color-border)',
-        background: 'var(--color-bg-secondary)',
-        marginTop: 'auto',
+        padding: '1.75rem 2rem',
+        background: '#ffffff',
+        borderTop: '1px solid var(--color-outline-variant)',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        gap: '1rem',
       }}
     >
-      <div
-        style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          padding: '2rem 1.5rem',
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          gap: '1rem',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <Sparkles size={20} color="var(--color-primary)" />
-          <span className="gradient-text" style={{ fontWeight: 700, fontSize: '1.1rem' }}>
-            Findr
-          </span>
-        </div>
-
-        <p style={{ color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>
-          © 2026 Findr. Connecting talent with opportunity.
-        </p>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+          <Image src="/images/findrlogo.png" alt="Findr" width={72} height={26} style={{ objectFit: 'contain' }} />
+        </Link>
+        <span style={{ fontSize: '0.8rem', color: 'var(--color-on-surface-variant)' }}>
+          © 2024 Findr. All rights reserved.
+        </span>
+      </div>
+      <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
+        {['Privacy Policy', 'Terms of Service', 'Help Center'].map((item) => (
+          <Link
+            key={item}
+            href="#"
+            style={{
+              fontSize: '0.85rem',
+              color: 'var(--color-on-surface-variant)',
+              textDecoration: 'none',
+              fontWeight: 500,
+              transition: 'color 0.15s',
+            }}
+          >
+            {item}
+          </Link>
+        ))}
       </div>
     </footer>
   );

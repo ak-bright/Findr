@@ -1,25 +1,17 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Briefcase,
-  LayoutDashboard,
-  FileText,
-  PlusCircle,
-  Menu,
-  X,
-  Sparkles,
-  LogIn,
-} from 'lucide-react';
+import { Bell, Settings, User, Menu, X } from 'lucide-react';
 
 const navLinks = [
-  { href: '/jobs', label: 'Jobs', icon: Briefcase },
-  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/cv-review', label: 'CV Review', icon: FileText },
-  { href: '/post-job', label: 'Post Job', icon: PlusCircle },
+  { href: '/', label: 'Home' },
+  { href: '/jobs', label: 'Find Jobs' },
+  { href: '/dashboard', label: 'Applications' },
+  { href: '/profile', label: 'Profile' },
 ];
 
 export default function Navbar() {
@@ -37,78 +29,110 @@ export default function Navbar() {
     >
       <div
         style={{
-          maxWidth: '1200px',
+          maxWidth: '1280px',
           margin: '0 auto',
-          padding: '0 1.5rem',
+          padding: '0 2rem',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          height: '70px',
+          height: '64px',
         }}
       >
         {/* Logo */}
-        <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-          <Sparkles size={28} color="var(--color-primary)" />
-          <span
-            style={{
-              fontSize: '1.5rem',
-              fontWeight: 800,
-              letterSpacing: '-0.02em',
-            }}
-            className="gradient-text"
-          >
-            Findr
-          </span>
+        <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+          <Image
+            src="/images/findrlogo.png"
+            alt="Findr"
+            width={90}
+            height={32}
+            style={{ objectFit: 'contain' }}
+          />
         </Link>
 
-        {/* Desktop Nav */}
+        {/* Desktop Nav Links — centered */}
         <div
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '2.5rem', /* Highly spacious tabs to meet the whitespace layout requirement */
+            gap: '2rem',
+            position: 'absolute',
+            left: '50%',
+            transform: 'translateX(-50%)',
           }}
           className="desktop-nav"
         >
           {navLinks.map((link) => {
-            const isActive = pathname === link.href;
-            const Icon = link.icon;
+            const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
             return (
               <Link
                 key={link.href}
                 href={link.href}
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.6rem',
-                  padding: '0.5rem 1.25rem',
-                  borderRadius: 'var(--radius-full)',
                   fontSize: '0.95rem',
-                  fontWeight: 600,
+                  fontWeight: isActive ? 700 : 500,
                   textDecoration: 'none',
                   color: isActive ? 'var(--color-primary)' : 'var(--color-on-surface-variant)',
-                  background: isActive ? 'var(--color-primary-fixed)' : 'transparent',
-                  transition: 'all 0.2s ease',
+                  borderBottom: isActive ? '2px solid var(--color-primary)' : '2px solid transparent',
+                  paddingBottom: '2px',
+                  transition: 'all 0.15s ease',
                 }}
               >
-                <Icon size={18} />
                 {link.label}
               </Link>
             );
           })}
+        </div>
 
-          <Link
-            href="/login"
-            className="btn-primary"
+        {/* Right side icons */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }} className="desktop-nav">
+          <button
             style={{
-              marginLeft: '0.75rem',
-              padding: '0.5rem 1.25rem',
-              fontSize: '0.9rem',
-              textDecoration: 'none',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '0.4rem',
+              color: 'var(--color-on-surface-variant)',
+              display: 'flex',
+              alignItems: 'center',
+              borderRadius: 'var(--radius-full)',
+              transition: 'background 0.15s ease',
             }}
+            title="Notifications"
           >
-            <LogIn size={16} />
-            Login
+            <Bell size={20} />
+          </button>
+          <button
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '0.4rem',
+              color: 'var(--color-on-surface-variant)',
+              display: 'flex',
+              alignItems: 'center',
+              borderRadius: 'var(--radius-full)',
+              transition: 'background 0.15s ease',
+            }}
+            title="Settings"
+          >
+            <Settings size={20} />
+          </button>
+          <Link
+            href="/profile"
+            style={{
+              width: '34px',
+              height: '34px',
+              borderRadius: 'var(--radius-full)',
+              background: 'var(--color-primary)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              textDecoration: 'none',
+              flexShrink: 0,
+            }}
+            title="Profile"
+          >
+            <User size={18} color="#fff" />
           </Link>
         </div>
 
@@ -120,7 +144,7 @@ export default function Navbar() {
             display: 'none',
             background: 'none',
             border: 'none',
-            color: 'var(--color-text)',
+            color: 'var(--color-on-surface)',
             cursor: 'pointer',
             padding: '0.5rem',
           }}
@@ -147,7 +171,6 @@ export default function Navbar() {
             <div style={{ padding: '1rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
-                const Icon = link.icon;
                 return (
                   <Link
                     key={link.href}
@@ -156,34 +179,19 @@ export default function Navbar() {
                     style={{
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '0.8rem',
-                      padding: '0.85rem 1.25rem',
+                      padding: '0.75rem 1rem',
                       borderRadius: 'var(--radius-md)',
-                      fontSize: '1.05rem',
-                      fontWeight: 600,
+                      fontSize: '1rem',
+                      fontWeight: isActive ? 700 : 500,
                       textDecoration: 'none',
                       color: isActive ? 'var(--color-primary)' : 'var(--color-on-surface-variant)',
                       background: isActive ? 'var(--color-primary-fixed)' : 'transparent',
                     }}
                   >
-                    <Icon size={20} />
                     {link.label}
                   </Link>
                 );
               })}
-              <Link
-                href="/login"
-                onClick={() => setMobileOpen(false)}
-                className="btn-primary"
-                style={{
-                  marginTop: '0.5rem',
-                  textDecoration: 'none',
-                  textAlign: 'center',
-                }}
-              >
-                <LogIn size={16} />
-                Login
-              </Link>
             </div>
           </motion.div>
         )}

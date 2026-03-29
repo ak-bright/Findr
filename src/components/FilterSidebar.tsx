@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Filter, X, ChevronDown } from 'lucide-react';
 import SkillTag from './SkillTag';
-import { LOCATIONS, SKILLS_LIST, JOB_CATEGORIES, JobCategory } from '@/lib/types';
+import { LOCATIONS, SKILLS_LIST, JOB_CATEGORIES } from '@/lib/types';
 
 interface FilterState {
   location: string;

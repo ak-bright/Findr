@@ -1,0 +1,18 @@
+
+C:\Users\Bright Afatsawo\Desktop\Claude-Builder\Findr\src\app\dashboard\page.tsx
+  16:3  warning  'Filter' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Bright Afatsawo\Desktop\Claude-Builder\Findr\src\app\post-job\page.tsx
+  6:22  warning  'X' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Bright Afatsawo\Desktop\Claude-Builder\Findr\src\components\CompanyDashboard.tsx
+  14:3  warning  'User' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Bright Afatsawo\Desktop\Claude-Builder\Findr\src\components\FilterSidebar.tsx
+  7:50  warning  'JobCategory' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\Bright Afatsawo\Desktop\Claude-Builder\Findr\src\components\UserDashboard.tsx
+  17:5  warning  React Hook useMemo has a missing dependency: 'userSkills'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+✖ 5 problems (0 errors, 5 warnings)
+

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { PlusCircle, X, Calendar } from 'lucide-react';
+import { PlusCircle, Calendar } from 'lucide-react';
 import SkillTag from '@/components/SkillTag';
 import { SKILLS_LIST, LOCATIONS, JOB_CATEGORIES } from '@/lib/types';
 

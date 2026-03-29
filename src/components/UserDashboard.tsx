@@ -14,7 +14,7 @@ export default function UserDashboard() {
 
   const recommendedJobs = useMemo(
     () => matchJobs(userSkills, MOCK_JOBS, 5),
-    []
+    [userSkills]
   );
 
   return (

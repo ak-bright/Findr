@@ -11,12 +11,13 @@ export default function MainLayoutWrapper({
 }) {
   const pathname = usePathname();
   const isAuthPage = pathname === '/login' || pathname === '/signup';
+  const isStandalonePage = isAuthPage || pathname === '/dashboard';
 
   return (
     <>
-      {!isAuthPage && <Navbar />}
+      {!isStandalonePage && <Navbar />}
       <main style={{ flex: 1 }}>{children}</main>
-      {!isAuthPage && <Footer />}
+      {!isStandalonePage && <Footer />}
     </>
   );
 }

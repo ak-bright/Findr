@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { mockCVReview } from '@/lib/mock-cv-review';
 
+export const dynamic = 'force-dynamic';
+
 // POST /api/cv-review — Analyze CV and return feedback
 export async function POST(request: NextRequest) {
   try {
