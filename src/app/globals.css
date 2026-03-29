@@ -62,8 +62,60 @@
 }
 
 /* ============================================ */
-/* Base Styles                                  */
+/* Mobile Responsiveness Utilities              */
 /* ============================================ */
+
+@media (max-width: 768px) {
+  /* Reduce container padding */
+  .container-padding {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  /* Stack flex items vertically on mobile */
+  .mobile-stack {
+    flex-direction: column !important;
+  }
+  
+  /* Hide elements on mobile */
+  .mobile-hidden {
+    display: none !important;
+  }
+  
+  /* Adjust gaps */
+  .mobile-gap-sm {
+    gap: 0.75rem !important;
+  }
+  
+  .mobile-gap-md {
+    gap: 1rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Further reduce padding */
+  .container-padding {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+  
+  /* Smaller gaps */
+  .mobile-gap-sm {
+    gap: 0.5rem !important;
+  }
+  
+  .mobile-gap-md {
+    gap: 0.75rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Minimal padding for very small screens */
+  .container-padding {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+}
 
 * {
   box-sizing: border-box;

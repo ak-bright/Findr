@@ -249,6 +249,12 @@ export default function JobDetailPage() {
       <style jsx global>{`
         @media (max-width: 768px) {
           .job-detail-grid { grid-template-columns: 1fr !important; }
+          div[style*="maxWidth: '1100px'"] { padding: 1.5rem 1rem !important; }
+          footer { padding: 1.5rem 1rem !important; margin-top: 2rem !important; }
+        }
+        @media (max-width: 640px) {
+          div[style*="maxWidth: '1100px'"] { padding: 1rem 0.75rem !important; }
+          footer { padding: 1rem 0.75rem !important; }
         }
       `}</style>
     </div>

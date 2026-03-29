@@ -299,3 +299,87 @@ export default function HomePage() {
     </div>
   );
 }
+
+<style jsx global>{`
+  /* Home page responsive styles */
+  @media (max-width: 768px) {
+    /* Hero section */
+    section:first-child {
+      padding: 3rem 1rem !important;
+      min-height: 75vh !important;
+    }
+    
+    /* Stats section */
+    section:first-child > div > div:last-child {
+      gap: 2rem !important;
+      margin-top: 3rem !important;
+    }
+    
+    /* Features section */
+    section:nth-child(2) {
+      padding: 4rem 1rem !important;
+    }
+    
+    /* CTA section */
+    section:nth-child(3) {
+      padding: 4rem 1rem !important;
+    }
+    
+    /* Feature cards */
+    .surface-card {
+      padding: 2rem !important;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    /* Hero section */
+    section:first-child {
+      padding: 2rem 1rem !important;
+      min-height: 70vh !important;
+    }
+    
+    /* Stats section */
+    section:first-child > div > div:last-child {
+      gap: 1.5rem !important;
+      margin-top: 2rem !important;
+    }
+    
+    /* Features section */
+    section:nth-child(2) {
+      padding: 3rem 1rem !important;
+    }
+    
+    /* CTA section */
+    section:nth-child(3) {
+      padding: 3rem 1rem !important;
+    }
+    
+    /* Feature cards */
+    .surface-card {
+      padding: 1.5rem !important;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    /* Hero section */
+    section:first-child {
+      padding: 1.5rem 0.75rem !important;
+    }
+    
+    /* Stats section */
+    section:first-child > div > div:last-child {
+      gap: 1rem !important;
+      margin-top: 1.5rem !important;
+    }
+    
+    /* Features section */
+    section:nth-child(2) {
+      padding: 2rem 0.75rem !important;
+    }
+    
+    /* CTA section */
+    section:nth-child(3) {
+      padding: 2rem 0.75rem !important;
+    }
+  }
+`}</style>

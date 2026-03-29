@@ -250,6 +250,18 @@ export default function LoginPage() {
           .editorial-section { padding: 3rem 2rem; }
           .form-section { padding: 3rem 1.5rem; }
         }
+        @media (max-width: 768px) {
+          header { padding: 1rem 1.5rem !important; }
+          .editorial-section { padding: 2rem 1.5rem !important; }
+          .form-section { padding: 2rem 1rem !important; }
+          footer { padding: 1.5rem 1rem !important; }
+        }
+        @media (max-width: 480px) {
+          header { padding: 0.75rem 1rem !important; }
+          .editorial-section { padding: 1.5rem 1rem !important; }
+          .form-section { padding: 1.5rem 1rem !important; }
+          footer { padding: 1rem !important; }
+        }
       `}</style>
     </div>
   );

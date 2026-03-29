@@ -14,6 +14,7 @@ export default function Footer() {
         flexWrap: 'wrap',
         gap: '1rem',
       }}
+      className="footer-responsive"
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
         <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
@@ -40,6 +41,25 @@ export default function Footer() {
           </Link>
         ))}
       </div>
+
+      <style jsx>{`
+        @media (max-width: 640px) {
+          .footer-responsive {
+            padding: 1.25rem 1rem !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 1rem !important;
+          }
+          .footer-responsive > div:last-child {
+            gap: 1rem !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .footer-responsive {
+            padding: 1rem 0.75rem !important;
+          }
+        }
+      `}</style>
     </footer>
   );
 }

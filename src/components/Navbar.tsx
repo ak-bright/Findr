@@ -212,6 +212,16 @@ export default function Navbar() {
             display: none !important;
           }
         }
+        @media (max-width: 640px) {
+          nav > div {
+            padding: 0 1rem !important;
+          }
+        }
+        @media (max-width: 480px) {
+          nav > div {
+            padding: 0 0.75rem !important;
+          }
+        }
       `}</style>
     </nav>
   );

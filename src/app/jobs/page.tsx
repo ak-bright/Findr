@@ -301,3 +301,32 @@ export default function JobsPage() {
     </div>
   );
 }
+
+<style jsx global>{`
+  @media (max-width: 768px) {
+    /* Hide sidebar on mobile */
+    aside {
+      display: none !important;
+    }
+    
+    /* Adjust main content padding */
+    main {
+      padding: 1.5rem 1rem !important;
+    }
+    
+    /* Adjust search bar layout */
+    main > div > div:first-of-type {
+      flex-direction: column !important;
+    }
+    
+    main > div > div:first-of-type > div:first-child {
+      margin-bottom: 1rem !important;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    main {
+      padding: 1rem 0.75rem !important;
+    }
+  }
+`}</style>
